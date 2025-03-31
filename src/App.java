@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import com.Customer;
+import com.Insufficient_Seats;
 import com.airline.Admin;
 import com.airline.Flight;
 public class App {
@@ -34,10 +35,15 @@ public class App {
                     Iterator<Flight> it = Flight_List.iterator();
                     while (it.hasNext()) {
                         Flight F = it.next();
+                        it.remove();
                         if (F.Flight_No == flightNumber) {
                             flag = true;
-                            it.remove(); 
-                            Flight_List.add(U.Book_Ticket(F, numberOfSeats));
+                            try {
+                                Flight_List.add(U.Book_Ticket(F, numberOfSeats)); 
+                            } catch (Insufficient_Seats e) {
+                                System.out.println(e.getMessage());
+                                Flight_List.add(F);
+                            }
                             updateFlightDataToFile();
                             break;
                         }
@@ -78,7 +84,7 @@ public class App {
                     int cost = scanner.nextInt();
                     System.out.print("Enter Number of Seats: ");
                     int seats = scanner.nextInt();
-                    A.Add_Flight(flightNo, source, destination, cost, seats);
+                    Flight_List.add(A.Add_Flight(flightNo, source, destination, cost, seats));
                     updateFlightDataToFile();
                     break;
                 case 2:
@@ -155,6 +161,17 @@ public class App {
             while ((line = br2.readLine()) != null) { 
                 String[] data = line.split(" ");
                 Admin_List.add(new Admin(data[0], data[1]));
+            }
+        } 
+        catch (IOException | NumberFormatException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+        String filePath3="user.txt";
+        try (BufferedReader br3 = new BufferedReader(new FileReader(filePath3))) {
+            String line;
+            while ((line = br3.readLine()) != null) { 
+                String[] data = line.split(" ");
+                User_List.add(new Customer(data[0], data[1]));
             }
         } 
         catch (IOException | NumberFormatException e) {
