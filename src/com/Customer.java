@@ -7,10 +7,9 @@ public class Customer {
         this.user_id = user_id;
         this.password = password;
     }
-    public Flight  Book_Ticket(Flight F,int N){
+    public Flight  Book_Ticket(Flight F,int N) throws Insufficient_Seats{
         if(F.Seats_Available<N){
-            System.out.println("Insufficient Seats !!");
-            F.Display();
+            throw new Insufficient_Seats("Insufficient Seats");
         }
         else{
             F.Seats_Available-=N;
