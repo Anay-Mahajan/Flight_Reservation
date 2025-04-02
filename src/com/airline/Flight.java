@@ -13,10 +13,10 @@ public class Flight {
         Seats_Available = seats_Available;
     }
     public  void Display(){
-        System.out.println(Flight_No);
-        System.out.println(Source);
-        System.out.println( Destination);
-        System.out.println(cost);
-        System.out.println(Seats_Available);
+        System.out.println("Flight_No : "+Flight_No);
+        System.out.println("Source : "+Source);
+        System.out.println("Destination : "+ Destination);
+        System.out.println("Cost :"+cost);
+        System.out.println("Seats Available : "+Seats_Available);
     }
 }
