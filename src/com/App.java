@@ -13,6 +13,7 @@ public class App {
     public static ArrayList<Flight>Flight_List=new ArrayList<>();
     public static ArrayList<Admin>Admin_List=new ArrayList<>();
     public static ArrayList<Customer>User_List=new ArrayList<>();
+    public static Scanner scanner = new Scanner(System.in);
     public static void updateFlightDataToFile() {
         String filePath = "flight.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
@@ -43,7 +44,7 @@ public class App {
     }
     public static void appendUserToFile(String userId, String password) {
         String filePath = "user.txt"; 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) { 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath,true))) { 
             writer.write(userId + " " + password);
             writer.newLine();
             System.out.println("New user added to Database.");
@@ -57,7 +58,7 @@ public class App {
             String line;
             while ((line = br.readLine()) != null) { 
                 String[] data = line.split(" ");
-                Flight_List.add(new Flight(
+                App.Flight_List.add(new Flight(
                         Integer.parseInt(data[0]),
                         data[1],
                         data[2],
@@ -74,7 +75,7 @@ public class App {
             String line;
             while ((line = br2.readLine()) != null) { 
                 String[] data = line.split(" ");
-                Admin_List.add(new Admin(data[0], data[1]));
+                App.Admin_List.add(new Admin(data[0], data[1]));
             }
         } 
         catch (IOException | NumberFormatException e) {
@@ -108,7 +109,7 @@ public class App {
                         C.Booking_Details.put(flight_no,Booking_Database.get(C.user_id).get(flight_no));
                     }
                 }
-                User_List.add(C);
+                App.User_List.add(C);
             }
         } 
         catch (IOException | NumberFormatException e) {
@@ -117,13 +118,12 @@ public class App {
     }
     public static void main(String[] args) throws Exception {
         App.Load_the_data();
-        Scanner scanner = new Scanner(System.in);
         int choice;
         while (true) { 
             System.out.println("\n===== Flight Reservation System =====");
             System.out.println("1. User Login ");
             System.out.println("2. Admin Login ");
-            System.out.println("3.New User Registration");
+            System.out.println("3. New User Registration");
             System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();

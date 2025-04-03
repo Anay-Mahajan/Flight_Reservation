@@ -1,5 +1,4 @@
 package com.airline;
-import java.util.Scanner;
 import com.App;
 import com.Customer;
 public class Admin {
@@ -10,26 +9,22 @@ public class Admin {
         this.password = password;
     }
     private void Add_New_Flight(){
-        @SuppressWarnings("resource")
-        Scanner scanner=new Scanner(System.in);
         System.out.print("Enter Flight No: ");
-        int flightNo = scanner.nextInt();
-        scanner.nextLine(); 
+        int flightNo = App.scanner.nextInt();
+        App.scanner.nextLine(); 
         System.out.print("Enter Source: ");
-        String source = scanner.nextLine();
+        String source = App.scanner.nextLine();
         System.out.print("Enter Destination: ");
-        String destination = scanner.nextLine();                
+        String destination = App.scanner.nextLine();                
         System.out.print("Enter Cost: ");
-        int cost = scanner.nextInt();
+        int cost = App.scanner.nextInt();
         System.out.print("Enter Number of Seats: ");
-        int seats = scanner.nextInt();
+        int seats = App.scanner.nextInt();
         App.Flight_List.add(new Flight(flightNo, source, destination, cost, seats));
         App.updateFlightDataToFile();       
     }
     public void Admin_Menu(){
         int choice;
-        @SuppressWarnings("resource")
-        Scanner scanner=new Scanner(System.in);
         do {
             System.out.println("\n===== Flight Reservation System =====");
             System.out.println("1. Add Flight ");
@@ -37,7 +32,7 @@ public class Admin {
             System.out.println("3.Customer Details");
             System.out.println("4.Flight Details");
             System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
+            choice = App.scanner.nextInt();
             switch (choice) {
                 case 1:
                     Add_New_Flight();
@@ -46,13 +41,20 @@ public class Admin {
                     System.out.println("Logging out... Thank you for using our system!");
                     break;
                 case 3:
+                    boolean flag=true;
                     for(Customer C : App.User_List){
-                        C.Customer_details();
+                        C.Customer_details(flag);
+                        flag=false;
                     }
+                    break;
                 case 4:
+                    System.out.println("+------------+-----------------+---------------+----------+------------------+");
+                    System.out.println("| Flight No | Source           | Destination   | Cost     | Seats Available  |");
+                    System.out.println("+------------+-----------------+---------------+----------+------------------+");
                     for(Flight f:App.Flight_List){
                         f.Display();
                     }
+                    break;
                 default:
                     System.out.println("Invalid choice! Please enter 1 or 2.");
             }

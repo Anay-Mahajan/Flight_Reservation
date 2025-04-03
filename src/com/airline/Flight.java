@@ -12,11 +12,9 @@ public class Flight {
         this.cost = cost;
         Seats_Available = seats_Available;
     }
-    public  void Display(){
-        System.out.println("Flight_No : "+Flight_No);
-        System.out.println("Source : "+Source);
-        System.out.println("Destination : "+ Destination);
-        System.out.println("Cost :"+cost);
-        System.out.println("Seats Available : "+Seats_Available);
+    public void Display() {
+        System.out.printf("| %-10d | %-15s | %-13s | %-8d | %-16d |\n", 
+                          Flight_No, Source, Destination, cost, Seats_Available);
+        System.out.println("+------------+-----------------+---------------+----------+------------------+");
     }
 }
