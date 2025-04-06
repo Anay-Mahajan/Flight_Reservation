@@ -172,10 +172,6 @@ public class App {
                     System.out.println("Enter Password to be set : ");
                     String upass=scanner.nextLine();
                     User_List.add(new Customer(uid,upass));
-                    for(Customer c:User_List){
-                        System.out.println(c.user_id);
-                        System.out.println(c.password);
-                    }
                     appendUserToFile(uid, upass);
                     break;
                 case 4:
